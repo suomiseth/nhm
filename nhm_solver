@@ -1,0 +1,38 @@
+require "pry"
+
+@nhm = []
+puts "we're gonna build a super NHM machine"
+puts "\nhow many problems should we do?"
+num_problems = gets.strip.to_i
+
+puts "\nput a math equation in"
+str = gets.strip.to_s
+@nhm << str
+
+until @nhm.count == num_problems
+  puts "\nthat makes #{@nhm.count}.  i need another #{num_problems - @nhm.count} problem(s).. enter another one"
+  str = gets.strip
+  @nhm << str
+end
+
+@answers = @nhm.map do |equation| 
+  digits = equation.split
+  if digits[1] == "+"
+    digits[0].to_i + digits[2].to_i
+  elsif digits[1] == "-"
+    digits[0].to_i - digits[2].to_i
+  elsif digits[1] == "*"
+    digits[0].to_i * digits[2].to_i
+  elsif digits[1] == "/"
+    digits[0].to_i / digits[2].to_i
+  else
+    # do nothing
+  end
+end 
+
+puts "are you ready?"
+gets.strip # waiting for enter
+
+@nhm.each.with_index do |problem, i|
+  puts "\n#{i + 1}.  #{problem} = #{@answers[i]}"
+end
